@@ -35,7 +35,7 @@ jobs:
         uses: prefix-dev/setup-pixi@v0.10.2
         with:
           cache: true
-          run-install: docs
+          environments: docs
 
       - name: Configure GitHub Pages
         id: pages
