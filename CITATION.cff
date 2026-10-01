@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+title: "myresearchpy"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: "Your Name"
+    given-names: "First"
+    email: "you@example.org"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+license: BSD-3-Clause
+repository-code: "https://github.com/your-org/myresearchpy"
+url: "https://your-org.github.io/myresearchpy/"
+version: "0.1.0"
+date-released: "2026-10-01"
+keywords:
+  - research software
+  - FAIR
+  - CURE
+  - reproducibility
+  - computational physics
+abstract: >-
+  A theoretical research software package built on FAIR and CURE principles.
+  Provides analytical energy spectra, variational bound-state estimates, and
+  dense generalised eigensolvers.
+references:
+  - type: software
+    title: "myresearchpy 0.1.0"
+    authors:
+      - family-names: "Your Name"
+        given-names: "First"
+    year: 2026
+    version: "0.1.0"
+    doi: "https://doi.org/10.5281/zenodo.XXXXXXX"

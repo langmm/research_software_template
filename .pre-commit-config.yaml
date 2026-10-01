@@ -1,0 +1,28 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+      - id: mixed-line-ending
+      - id: check-merge-conflict
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Kept in step with the ruff version in the pixi `dev` environment, so that
+    # local `pixi run lint` and pre-commit agree on import ordering.
+    rev: v0.16.9
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.18.2
+    hooks:
+      - id: mypy
+        files: ^src/
+        # numpy must be pinned recent enough for NDArray to be a valid type.
+        additional_dependencies: ["numpy>=2.0", types-setuptools]

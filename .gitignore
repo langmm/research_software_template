@@ -1,0 +1,72 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.env
+
+# pixi
+.pixi/
+
+# Testing and coverage
+.pytest_cache/
+.cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+nosetests.xml
+*.cover
+.tox/
+.hypothesis/
+
+# Documentation
+docs/_build/
+docs/api/_autosummary/
+_build/
+.jupyter_cache/
+
+# Type checkers and linters
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+.pyre/
+.pytype/
+
+# Editors and OS
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Data and scratch
+scratch/
+*.ipynb_checkpoints
+data/raw/
+data/tmp/
