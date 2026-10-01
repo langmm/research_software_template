@@ -36,10 +36,10 @@ jobs:
         shell: bash
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install pixi
-        uses: prefix-dev/setup-pixi@v0.8.x
+        uses: prefix-dev/setup-pixi@v0.10.2
         with:
           cache: true
           # Each matrix entry installs its own environment, which pins the
