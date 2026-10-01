@@ -1,0 +1,42 @@
+name: Template check
+
+# Fails while any template placeholder or metadata inconsistency survives, so a
+# repository cannot be published until the migration checklist is complete.
+# See docs/contributing.md for what each check verifies and how to fix it.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: template-check-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check the migration is complete
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install pixi
+        uses: prefix-dev/setup-pixi@v0.10.2
+        with:
+          cache: true
+          # The checker only needs a bare interpreter, so the default
+          # environment is enough. It has no third-party dependencies.
+          environments: default
+
+      - name: Run the template check
+        run: pixi run -e default check-template

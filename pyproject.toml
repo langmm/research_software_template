@@ -124,9 +124,10 @@ py313 = { features = ["py313", "test"], solve-group = "py313" }
 [tool.pixi.tasks]
 test = "pytest"
 test-cov = "pytest --cov=myresearchpy --cov-report=term-missing --cov-report=xml"
-lint = "ruff check src tests"
-format = "ruff format --check src tests"
-format-fix = "ruff format src tests"
+lint = "ruff check src tests scripts"
+format = "ruff format --check src tests scripts"
+format-fix = "ruff format src tests scripts"
+check-template = "python scripts/check_template.py --verbose"
 docs = "sphinx-build -b html docs docs/_build/html"
 docs-live = "sphinx-build -b html docs docs/_build/html"
 

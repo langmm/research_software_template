@@ -100,3 +100,35 @@ been chosen.
 Cite the package as `myresearchpy` (replace with your name) with the version
 from `src/myresearchpy/__version__.py`, which is also where `pyproject.toml`
 reads its version from — update both together.
+
+## Migration checklist
+
+This template is a starting point, not a finished project. Before your first
+release, every placeholder must be replaced with your own values.
+`scripts/check_template.py` verifies that for you, and the *Template check*
+workflow runs it on every push and pull request. That workflow fails on the
+unmodified template by design; it goes green once the migration is complete.
+
+```bash
+pixi run check-template
+```
+
+The checker never modifies files and has no third-party dependencies.
+
+| Check | Verifies |
+| --- | --- |
+| `placeholders` | No template package name, author, email, organisation, ORCID or DOI placeholder survives anywhere in the tracked tree. |
+| `package-name` | The name in `pyproject.toml` matches `src/<name>/`, `docs/conf.py` and `CITATION.cff`. |
+| `version` | `pyproject.toml`, `src/<name>/__version__.py` and `CITATION.cff` report the same version. |
+| `api-docs` | Every public module has an `automodule` page in `docs/api/`, and every page points at a module that exists. |
+| `license` | The SPDX identifier matches the `LICENSE` text, and the copyright line names a real person. |
+
+Run one check at a time while migrating, and add `--verbose` for remediation
+hints:
+
+```bash
+pixi run python scripts/check_template.py --only license --verbose
+```
+
+The DOI placeholder can only be resolved once your Zenodo DOI has been minted.
+Everything else must be settled before you publish.

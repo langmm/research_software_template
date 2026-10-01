@@ -104,7 +104,9 @@ myresearchpy/
 │   ├── contributing.md
 │   ├── changelog.md
 │   └── api/                  # autodoc pages
-└── .github/workflows/        # tests, docs, lint, release
+├── scripts/
+│   └── check_template.py     # verifies the migration is complete
+└── .github/workflows/        # tests, docs, lint, template check, release
 ```
 
 ## Documentation
@@ -125,6 +127,7 @@ rather than shipped.
 | `tests.yml` | push, PR | tests on Linux/macOS/Windows, Python 3.10–3.13 |
 | `docs.yml` | push, PR touching docs | warning-free Sphinx build, deploy to Pages |
 | `lint.yml` | push, PR | `ruff check` and format verification |
+| `template-check.yml` | push, PR | no template placeholders or metadata drift left |
 | `release.yml` | version tags | version/tag consistency check, tests, PyPI publish |
 
 ## Adapting this template
@@ -151,6 +154,13 @@ need otherwise.
 6. Point `.github/workflows/docs.yml` at your GitHub Pages environment.
 7. Delete the reference implementations and their tests once you have real
    equivalents.
+8. Run `pixi run check-template` until it passes.
+
+`scripts/check_template.py` verifies the rename reached every required location
+and that no placeholder survives. It exits non-zero while anything is left, which
+is why the *Template check* workflow is red on an unmodified copy of this
+template. See [Migration checklist](docs/contributing.md#migration-checklist)
+for what each check covers.
 
 ### Existing codebase
 
@@ -346,6 +356,7 @@ protection on `main` requiring the test workflow to pass.
 - [ ] `pixi run docs` builds; `docs/api/` updated
 - [ ] Package renamed throughout; version set in `__version__.py`
 - [ ] `CHANGELOG.md` and `CITATION.cff` filled in
+- [ ] `pixi run check-template` reports every check passed
 - [ ] GitHub repository created and pushed
 - [ ] All workflows green; `github-pages` environment configured
 - [ ] Zenodo DOI minted
