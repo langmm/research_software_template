@@ -201,22 +201,43 @@ def find_line(text: str, needle: str, *, limit: int | None = None) -> int | None
 # ---------------------------------------------------------------------------
 # minimal TOML reading
 # ---------------------------------------------------------------------------
-def load_toml(path: Path) -> dict:
-    """Parse ``path`` as TOML.
+def _toml_parser():
+    """Return the ``loads`` callable of the available TOML parser.
 
-    Uses :mod:`tomllib` on Python 3.11 and newer. On 3.10 it falls back to a
-    deliberately small reader covering the tables this script inspects, which
-    keeps the script dependency-free across the full supported Python range.
+    :mod:`tomllib` is stdlib from 3.11. On 3.10 the backport ``tomli`` is used;
+    it is declared as a conditional dependency so both interpreters parse the
+    manifest identically. An earlier revision of this script substituted a
+    hand-written partial reader here, which silently failed to see keys such as
+    ``license`` and reported them as missing.
+    """
+    try:
+        import tomllib
+    except ModuleNotFoundError:
+        pass
+    else:
+        return tomllib.loads
+    try:
+        import tomli
+    except ModuleNotFoundError:
+        return None
+    return tomli.loads
+
+
+def load_toml(path: Path) -> dict:
+    """Parse ``path`` as TOML, or return an empty project table on failure.
+
+    A missing or unparsable manifest is reported by the individual checks rather
+    than raised, so one broken file produces a readable finding instead of a
+    traceback.
     """
     text = read(path)
     if not text:
         return {}
-    try:
-        import tomllib
-    except ModuleNotFoundError:
+    loads = _toml_parser()
+    if loads is None:
         return {"project": _fallback_project_table(text)}
     try:
-        return tomllib.loads(text)
+        return loads(text)
     except Exception:  # malformed manifest: surface it as an empty document
         return {"project": {}}
 

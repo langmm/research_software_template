@@ -440,6 +440,34 @@ def test_unrecognisable_license_text_is_reported(
 # ---------------------------------------------------------------------------
 # command line interface
 # ---------------------------------------------------------------------------
+def test_a_real_toml_parser_is_always_available() -> None:
+    """A spec-compliant TOML parser must exist on every supported Python.
+
+    An earlier revision substituted a hand-written partial reader on 3.10, where
+    tomllib is unavailable. It did not recognise the ``license`` key, so the
+    license check reported "declares no license" for a correctly declared
+    project. The regression is invisible on 3.11+, so assert the parser is
+    present rather than which one it is.
+    """
+    loads = CHECKER._toml_parser()
+    assert loads is not None, "neither tomllib nor tomli could be imported"
+    parsed = loads('[project]\nname = "x"\nlicense = { text = "BSD-3-Clause" }\n')
+    assert parsed["project"]["license"]["text"] == "BSD-3-Clause"
+
+
+def test_manifest_keys_survive_every_python_version() -> None:
+    """Keys the checks rely on must be readable, not just ``name``.
+
+    Guards the same regression from the caller's side: a parser that drops keys
+    makes valid projects look broken instead of reporting a real problem.
+    """
+    parsed = CHECKER.load_toml(REPO_ROOT / "pyproject.toml")
+    project = parsed.get("project", {})
+    assert project.get("name")
+    assert project.get("version")
+    assert "license" in project, "the license key must be readable on every version"
+
+
 def test_list_checks_names_every_check() -> None:
     """--list-checks must enumerate the available checks and succeed."""
     result = subprocess.run(
