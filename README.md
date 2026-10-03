@@ -1,5 +1,16 @@
 # myresearchpy
 
+[![Tests](https://github.com/your-org/myresearchpy/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/your-org/myresearchpy/actions/workflows/tests.yml)
+[![Documentation](https://github.com/your-org/myresearchpy/actions/workflows/docs.yml/badge.svg?branch=main)](https://github.com/your-org/myresearchpy/actions/workflows/docs.yml)
+[![Template check](https://github.com/your-org/myresearchpy/actions/workflows/template-check.yml/badge.svg?branch=main)](https://github.com/your-org/myresearchpy/actions/workflows/template-check.yml)
+[![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](LICENSE)
+
+The three status badges track the `tests`, `docs` and `template-check` workflows
+and show `unknown` until you push to a repository of your own. **Template check
+will report failure until you finish the migration** — that is the intended
+signal, not a defect. See [Adapting this template](#adapting-this-template).
+
 <!--intro-start-->
 
 A template for **theoretical research software in Python**, organised around the
@@ -159,10 +170,13 @@ need otherwise.
 3. Set the version in `src/myresearchpy/__version__.py`.
 4. Replace the placeholder modules, keeping docstrings complete.
 5. Update the URLs in `pyproject.toml`, `CITATION.cff` and `docs/conf.py`.
-6. Point `.github/workflows/docs.yml` at your GitHub Pages environment.
-7. Delete the reference implementations and their tests once you have real
+6. Update the badge URLs at the top of this README to your repository slug. They
+   are the one place the repository name appears, so the status badges stay
+   `unknown` until you do.
+7. Point `.github/workflows/docs.yml` at your GitHub Pages environment.
+8. Delete the reference implementations and their tests once you have real
    equivalents.
-8. Run `pixi run check-template` until it passes.
+9. Run `pixi run check-template` until it passes.
 
 `scripts/check_template.py` verifies the rename reached every required location
 and that no placeholder survives. It exits non-zero while anything is left, which
@@ -365,6 +379,7 @@ protection on `main` requiring the test workflow to pass.
 - [ ] Package renamed throughout; version set in `__version__.py`
 - [ ] `CHANGELOG.md` and `CITATION.cff` filled in
 - [ ] `pixi run check-template` reports every check passed
+- [ ] Badge URLs in this README updated to your repository slug
 - [ ] GitHub repository created and pushed
 - [ ] All workflows green; `github-pages` environment configured
 - [ ] Zenodo DOI minted
