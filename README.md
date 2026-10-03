@@ -102,6 +102,7 @@ myresearchpy/
 │   ├── index.md
 │   ├── theory.md             # derivations behind the code
 │   ├── contributing.md
+│   ├── tools.md              # the software tools used, with documentation
 │   ├── changelog.md
 │   └── api/                  # autodoc pages
 ├── scripts/
@@ -119,6 +120,13 @@ contributors most often skip.
 In CI the docs workflow publishes to GitHub Pages on every push to `main` and
 enforces a warning-free build (`-W`), so a documentation regression is caught
 rather than shipped.
+
+## Software tools
+
+The complete list of tooling, with links to the upstream documentation, is in
+[Software tools](docs/tools.md). In short: pixi for environments, pytest and
+ruff for testing and linting, Sphinx for documentation, and GitHub Actions with
+GitHub Pages for CI and hosting.
 
 ## Continuous integration
 

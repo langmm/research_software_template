@@ -13,6 +13,7 @@
 theory
 api/index
 contributing
+tools
 license
 changelog
 ```
